@@ -1,4 +1,4 @@
-// main.js - Graficación 3D con three.js
+// main.js - Graficación 3D con three.js (animación final)
 // Gamaliel Jiménez Oropeza - 23200855
 import * as THREE from 'https://unpkg.com/three@0.154.0/build/three.module.js';
 
@@ -9,15 +9,30 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Crear geometría y material para el cubo
+// Cubo 1 (central) - Azul
 const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+const material = new THREE.MeshStandardMaterial({ color: 0x0000ff });
 const cube = new THREE.Mesh(geometry, material);
+cube.position.set(0, 0, 0);
 scene.add(cube);
+
+// Cubo 2 (izquierda) - Verde
+const geometry2 = new THREE.BoxGeometry(1, 1, 1);
+const material2 = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+const cube2 = new THREE.Mesh(geometry2, material2);
+cube2.position.set(-2, 0, 0);
+scene.add(cube2);
+
+// Cubo 3 (derecha) - Rojo
+const geometry3 = new THREE.BoxGeometry(1, 1, 1);
+const material3 = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+const cube3 = new THREE.Mesh(geometry3, material3);
+cube3.position.set(2, 0, 0);
+scene.add(cube3);
 
 // Agregar una luz direccional y ajustar su posición
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.position.set(1, 1, 5).normalize();
+directionalLight.position.set(5, 5, 5).normalize();
 scene.add(directionalLight);
 
 // Posicionar la cámara
@@ -25,8 +40,15 @@ camera.position.z = 5;
 
 // Función de animación con rotación y renderizado
 function animate() {
-    cube.rotation.x += 0.01; // Rotación en eje X
-    cube.rotation.y += 0.01; // Rotación en eje Y
+    cube.rotation.x += 0.03;  // Azul - velocidad media
+    cube.rotation.y += 0.03;
+
+    cube2.rotation.x += 0.01; // Verde - velocidad lenta
+    cube2.rotation.y += 0.01;
+
+    cube3.rotation.x += 0.06; // Rojo - velocidad rápida
+    cube3.rotation.y += 0.06;
+
     renderer.render(scene, camera);
 }
 
